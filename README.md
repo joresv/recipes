@@ -1,7 +1,3 @@
-Voici une version mise à jour du README qui inclut le gestionnaire d'état **GetX** et ses avantages :
-
----
-
 # 📱 Flutter Recipe App
 
 ## Description
