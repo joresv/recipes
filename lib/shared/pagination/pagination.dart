@@ -1,4 +1,3 @@
-
 class Pagination<T> {
   List<T> _data = [];
   int total;
@@ -33,9 +32,9 @@ class Pagination<T> {
       Map<String, dynamic> json, T Function(Map<String, dynamic> json) parser)
       : total = json['total'],
         _data = (json['data'] as List).map((d) => parser(d)).toList(),
-        totalPages = json['last_page'],
-        limit = json['per_page'],
-        currentPage = json['current_page'];
+        totalPages = (json['total'] / json['limit']).ceil(),
+        limit = json['limit'],
+        currentPage = json['page'];
 
   Pagination.empty()
       : _data = [],

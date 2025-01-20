@@ -1,17 +1,21 @@
 import 'package:dio/dio.dart';
-import 'package:receip_app/config.dart';
-import 'package:receip_app/shared/provider/domain/http.provider.dart';
-import 'package:receip_app/shared/provider/infra/dio/exceptions/dio.exceptions.dart';
+import 'package:recipes_app/config.dart';
+import 'package:recipes_app/shared/provider/domain/http.provider.dart';
+import 'package:recipes_app/shared/provider/infra/dio/exceptions/dio.exceptions.dart';
 
 class HttpDioProvider extends HttpProvider {
   late Dio _dio;
+
+  HttpDioProvider(){
+    init();
+  }
 
   void init() {
     final BaseOptions baseOption = BaseOptions(
       baseUrl: ConfigEnvironments.baseUrl,
       headers: _defaultHeader,
-      receiveTimeout: const Duration(seconds: 20),
-      connectTimeout: const Duration(seconds: 20),
+      receiveTimeout: const Duration(seconds: 40),
+      connectTimeout: const Duration(seconds: 40),
     );
     _dio = Dio(baseOption);
     _interceptor();
@@ -24,12 +28,17 @@ class HttpDioProvider extends HttpProvider {
 
   @override
   Future delete(String path, {Map<String, dynamic>? queryParameters, body}) {
-    return _dio.delete(path, queryParameters: queryParameters, data: body);
+    return _dio
+        .delete(path, queryParameters: queryParameters, data: body)
+        .then((response) => response.data);
   }
 
   @override
   Future get(String path, {Map<String, dynamic>? queryParameters}) {
-    return _dio.get(path, queryParameters: queryParameters);
+    return _dio
+        .get(path, queryParameters: queryParameters)
+        .then((response) => response.data);
+    ;
   }
 
   @override
@@ -41,13 +50,17 @@ class HttpDioProvider extends HttpProvider {
     void Function(int p1, int p2)? onReceiveProgress,
     void Function(int p1, int p2)? onSendProgress,
   }) {
-    return _dio.post(path, queryParameters: queryParameters, data: body);
+    return _dio
+        .post(path, queryParameters: queryParameters, data: body)
+        .then((response) => response.data);
   }
 
   @override
   Future put(String path,
       {Map<String, dynamic>? queryParameters, Object? body}) {
-    return _dio.put(path, queryParameters: queryParameters, data: body);
+    return _dio
+        .put(path, queryParameters: queryParameters, data: body)
+        .then((response) => response.data);
   }
 
   void _interceptor() {

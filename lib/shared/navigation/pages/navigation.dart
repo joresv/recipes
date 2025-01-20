@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:receip_app/modules/recipes/presentation/controllers/home.controller.dart';
-import 'package:receip_app/modules/recipes/presentation/screens/recipes.list.screen.dart';
+import 'package:recipes_app/modules/recipes/presentation/controllers/recipes.controller.dart';
+import 'package:recipes_app/modules/recipes/presentation/screens/recipes.list.screen.dart';
 
 import '../../../config.dart';
 import '../routes/routes.dart';

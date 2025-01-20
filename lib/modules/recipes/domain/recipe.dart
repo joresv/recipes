@@ -1,4 +1,4 @@
-class Recipe{
+class Recipe {
   int id;
   String name;
   List<String> ingredients;
@@ -35,25 +35,24 @@ class Recipe{
     required this.mealType,
   });
 
-  factory Recipe.fromJson(Map<String, dynamic> json){
+  factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe._(
       id: json['id'],
       name: json['name'],
-      ingredients: json['ingredients'],
-      instructions: json['instructions'],
+      ingredients: json['ingredients'].cast<String>(),
+      instructions: json['instructions'].cast<String>(),
       prepTimeMinutes: json['prepTimeMinutes'],
       cookTimeMinutes: json['cookTimeMinutes'],
       servings: json['servings'],
       difficulty: json['difficulty'],
       cuisine: json['cuisine'],
       caloriesPerServing: json['caloriesPerServing'],
-      tags: json['tags'],
+      tags: json['tags'].cast<String>(),
       userId: json['userId'],
       image: json['image'],
-      rating: json['rating'],
+      rating: json['rating'] * 1.0,
       reviewCount: json['reviewCount'],
-      mealType: json['mealType'],
+      mealType: json['mealType'].cast<String>(),
     );
   }
 }
-
