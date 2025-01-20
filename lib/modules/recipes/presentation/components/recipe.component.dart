@@ -25,8 +25,7 @@ class RecipeComponent extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(15)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
               child: Image.network(
                 recipe.image,
                 height: 200,
@@ -37,23 +36,19 @@ class RecipeComponent extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(10),
               child: Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Text(
                           recipe.name,
-                          style: Get.textTheme.bodyLarge
-                              ?.copyWith(),
+                          style: Get.textTheme.bodyLarge?.copyWith(),
                         ),
                       ),
                       Padding(
-                        padding:
-                        const EdgeInsets.only(top: 1),
+                        padding: const EdgeInsets.only(top: 1),
                         child: Text.rich(
                           TextSpan(children: [
                             WidgetSpan(
@@ -63,14 +58,22 @@ class RecipeComponent extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text:
-                              '${recipe.rating}(${recipe.reviewCount})',
+                              text: '${recipe.rating}(${recipe.reviewCount})',
                             )
                           ]),
                           style: TextStyle(fontSize: 14),
                         ),
                       )
                     ],
+                  ),
+                  Text(
+                    recipe.tags.map((tag)=>'#$tag').join(', '),
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

@@ -18,18 +18,40 @@ class RecipesListScreen extends GetView<RecipesController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SafeArea(
-              child: Text(
-                LocaleKeys.findBestRecipeForCooking.tr,
-                style: Get.textTheme.bodyLarge?.copyWith(
-                  fontSize: 30,
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      LocaleKeys.findBestRecipeForCooking.tr,
+                      style: Get.textTheme.bodyLarge?.copyWith(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                  Obx(
+                    ()=> IconButton(
+                      onPressed: controller.handleChangeLanguage,
+                      icon: Text(controller.language.value.toUpperCase()),
+                    ),
+                  )
+                ],
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            InputSearch(
-              onChanged: controller.query.call,
+            Row(
+              children: [
+                Expanded(
+                  child: InputSearch(
+                    onChanged: controller.query.call,
+                  ),
+                ),
+                IconButton(
+                  onPressed: controller.handleSortRecipes,
+                  icon: Icon(Icons.filter_list_rounded),
+                )
+              ],
             ),
             SizedBox(
               height: 10,
@@ -50,20 +72,20 @@ class RecipesListScreen extends GetView<RecipesController> {
                         return Column(
                           children: [
                             RecipeComponent(recipe: recipe),
-                              Obx(
-                                ()=> Visibility(
-                                  visible: index ==
-                                          controller.recipes.data.value.data
-                                                  .length -
-                                              1 &&
-                                      controller.recipes.isLoadingMore,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 100,
-                                    child: CircularProgressIndicator(),
-                                  ),
+                            Obx(
+                              () => Visibility(
+                                visible: index ==
+                                        controller.recipes.data.value.data
+                                                .length -
+                                            1 &&
+                                    controller.recipes.isLoadingMore,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 100,
+                                  child: CircularProgressIndicator(),
                                 ),
-                              )
+                              ),
+                            )
                           ],
                         );
                       },

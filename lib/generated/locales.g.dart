@@ -29,5 +29,6 @@ class Locales {
         'Trouvez les meilleures recettes\npour la cuisine',
     'trendingNow': 'Tendances actuelles 🔥',
     'recentRecipe': 'Recette récente',
+    'searchRecipe': 'Rechercher des recettes',
   };
 }

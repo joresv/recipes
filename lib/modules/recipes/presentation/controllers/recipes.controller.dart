@@ -5,6 +5,7 @@ import 'package:recipes_app/modules/recipes/domain/recipe.dart';
 import 'package:recipes_app/modules/recipes/domain/recipe.filter.dart';
 import 'package:recipes_app/modules/recipes/domain/recipes.repository.dart';
 import 'package:recipes_app/shared/domain/usecases/run_usecase.dart';
+import 'package:recipes_app/shared/enums/RequestOrder.dart';
 import 'package:recipes_app/shared/pagination/pagination.dart';
 import 'package:recipes_app/shared/utils/build_data.dart';
 
@@ -22,6 +23,8 @@ class RecipesController extends GetxController {
   final recipes = LoadingData<Pagination<Recipe>>(Pagination.empty());
   final scrollController = ScrollController();
   final query = ''.obs;
+  final requestOrder = RequestOrder.asc.obs;
+  final language = 'en'.obs;
 
   @override
   void onInit() {
@@ -35,6 +38,10 @@ class RecipesController extends GetxController {
     });
 
     debounce(query, (query) {
+      handleGetRecipes();
+    });
+
+    ever(requestOrder, (o){
       handleGetRecipes();
     });
   }
@@ -62,6 +69,7 @@ class RecipesController extends GetxController {
         page: page,
         limit: 10,
         query: query.value,
+        order: requestOrder.value,
       )),
       builder: recipes,
     ).execute(
@@ -77,5 +85,22 @@ class RecipesController extends GetxController {
         print(value);
       },
     );
+  }
+
+  void handleSortRecipes() {
+    if(requestOrder.value == RequestOrder.asc){
+      requestOrder.value = RequestOrder.desc;
+      return;
+    }
+    requestOrder.value = RequestOrder.asc;
+  }
+
+  void handleChangeLanguage() {
+    if(language.value == 'en'){
+      language.value = 'fr';
+    }else{
+      language.value = 'en';
+    }
+    Get.updateLocale(Locale(language.value));
   }
 }

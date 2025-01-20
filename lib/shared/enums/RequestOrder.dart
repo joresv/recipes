@@ -1,0 +1,4 @@
+enum RequestOrder{
+  asc,
+  desc,
+}
